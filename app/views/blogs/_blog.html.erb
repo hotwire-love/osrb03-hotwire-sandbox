@@ -1,6 +1,9 @@
 <div id="<%= dom_id blog %>">
   <h2>
-    <%= link_to blog.title, [:edit, blog], data: { turbo_frame: 'modal' } %>
+    <%= link_to blog.title, blog %>
   </h2>
   <%= blog.content %>
+  <p>
+    <%= link_to 'edit', [:edit, blog], data: { turbo_frame: 'modal' } %>
+  </p>
 </div>

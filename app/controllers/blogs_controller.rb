@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  before_action :set_blog, only: %i[ edit update destroy ]
+  before_action :set_blog, only: %i[ show edit update destroy ]
 
   # GET /blogs
   def index
@@ -15,14 +15,18 @@ class BlogsController < ApplicationController
   def edit
   end
 
+  def show
+  end
+
   # POST /blogs
   def create
     @blog = Blog.new(blog_params)
 
     if @blog.save
       @blog.broadcast_prepend_to("blogs")
-      flash.now.notice = "Blog was successfully created."
-      render inline: '', layout: true
+      redirect_to blogs_path
+      # flash.notice = "Blog was successfully created."
+      # render turbo_stream: turbo_stream.action(:redirect, blogs_path)
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,8 +36,8 @@ class BlogsController < ApplicationController
   def update
     if @blog.update(blog_params)
       @blog.broadcast_replace_to("blogs")
-      flash.now.notice = "Blog was successfully updated."
-      render inline: '', layout: true
+      flash.notice = "Blog was successfully updated."
+      render turbo_stream: turbo_stream.action(:redirect, blogs_path)
     else
       render :edit, status: :unprocessable_entity
     end
