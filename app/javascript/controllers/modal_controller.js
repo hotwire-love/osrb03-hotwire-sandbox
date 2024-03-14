@@ -14,6 +14,7 @@ export default class extends Controller {
   }
 
   close(event) {
+    console.log(event.detail);
     if (event.detail.success) {
       this.modal.hide()
     }

@@ -24,8 +24,9 @@ class BlogsController < ApplicationController
 
     if @blog.save
       @blog.broadcast_prepend_to("blogs")
-      flash.now.notice = "Blog was successfully created."
-      render inline: '', layout: true
+      redirect_to blogs_path
+      # flash.notice = "Blog was successfully created."
+      # render turbo_stream: turbo_stream.action(:redirect, blogs_path)
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,8 +36,8 @@ class BlogsController < ApplicationController
   def update
     if @blog.update(blog_params)
       @blog.broadcast_replace_to("blogs")
-      flash.now.notice = "Blog was successfully updated."
-      render inline: '', layout: true
+      flash.notice = "Blog was successfully updated."
+      render turbo_stream: turbo_stream.action(:redirect, blogs_path)
     else
       render :edit, status: :unprocessable_entity
     end
