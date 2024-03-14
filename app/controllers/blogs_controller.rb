@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-  before_action :set_blog, only: %i[ edit update destroy ]
+  before_action :set_blog, only: %i[ show edit update destroy ]
 
   # GET /blogs
   def index
@@ -13,6 +13,9 @@ class BlogsController < ApplicationController
 
   # GET /blogs/1/edit
   def edit
+  end
+
+  def show
   end
 
   # POST /blogs
